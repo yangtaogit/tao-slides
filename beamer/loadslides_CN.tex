@@ -5,8 +5,8 @@
 \setsansfont{TeX Gyre Heros}          % Helvetica-compatible sans-serif
 \setmainfont{TeX Gyre Heros}
 \usepackage{xeCJK}
-\setCJKmainfont{SimSun}               % 宋体（简体中文）
-\setCJKsansfont{SimSun}
+\setCJKmainfont[AutoFakeBold=2]{SimSun}    % 宋体（简体中文），模拟粗体
+\setCJKsansfont[AutoFakeBold=2]{SimSun}
 \setCJKmonofont{SimSun}
 
 \usepackage[style=red]{styles/beamerthemeelegant}
@@ -20,6 +20,7 @@
 \RequirePackage{booktabs}
 \RequirePackage{colortbl}
 \RequirePackage{ragged2e}
+\RequirePackage{schemabloc}
 \RequirePackage{caption}
 \RequirePackage{subcaption}
 \RequirePackage{tabularx}
