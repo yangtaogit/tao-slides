@@ -43,9 +43,9 @@ Set the `style` option in `loadslides.tex` (or `loadslides_CN.tex`):
 
 | Style     | Primary | Secondary | Tertiary |
 |-----------|---------|-----------|----------|
-| `lecture` | Navy    | Pink      | Teal     |
+| `lecture` | Navy    | Dark Red  | Forest   |
 | `gold`    | Navy    | Gold      | Crimson  |
-| `red`     | Navy    | Dark Red  | Forest   |
+| `red`     | Navy    | Pink      | Teal     |
 | `orange`  | Navy    | Orange    | Teal     |
 | `gray`    | Navy    | Dark Red  | Gray     |
 
