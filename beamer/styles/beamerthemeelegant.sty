@@ -80,6 +80,11 @@
 \setbeamercolor{block title example}{bg=white,fg=tertiary}
 \setbeamercolor{block body example}{bg=white,fg=text}
 \setbeamercolor*{bibliography item}{fg=primary}
+\newcounter{beamerbibcount}
+\setbeamertemplate{bibliography item}{%
+  \stepcounter{beamerbibcount}%
+  \textcolor{primary}{[\thebeamerbibcount]}%
+}
 \setbeamercolor*{bibliography entry author}{fg=primary}
 \setbeamercolor*{bibliography entry title}{fg=text}
 \setbeamercolor*{bibliography entry location}{fg=text}
@@ -101,6 +106,20 @@
 \setbeamerfont*{bibliography entry title}{size=\normalsize,series=\bfseries}
 \setbeamerfont*{bibliography entry location}{size=\small,series=\normalfont}
 \setbeamerfont*{bibliography entry note}{size=\small,series=\normalfont}
+\AtBeginDocument{%
+  \defbibenvironment{bibliography}
+    {\list{}
+      {
+        \setlength{\leftmargin}{1.8em}
+        \setlength{\labelwidth}{1.3em}
+        \setlength{\labelsep}{0.5em}
+        \setlength{\itemindent}{0pt}
+        \setlength{\bibhang}{0pt}
+      }
+    }
+    {\endlist}
+    {\item[\usebeamertemplate{bibliography item}]}
+}
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 % Inner theme: TOC
@@ -231,6 +250,6 @@
     \setlength\beamer@paperheight{9.00cm}%
     \geometry{papersize={\beamer@paperwidth,\beamer@paperheight}}
 \makeatother
-\setbeamersize{text margin left=8mm,text margin right=8mm}
+\setbeamersize{text margin left=6mm,text margin right=6mm}
 
 \mode<all>
