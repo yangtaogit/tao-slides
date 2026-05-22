@@ -1,0 +1,22 @@
+# LaTeX build directory
+build/
+
+# LaTeX auxiliary files (if not using build/)
+missfont.log
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.nav
+*.out
+*.run.xml
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
+
+# Output PDF (comment out if you want to track compiled PDFs)
+*.pdf

@@ -1,0 +1,236 @@
+\mode<presentation>
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% Style option
+\DeclareOptionBeamer{style}{\def\beamer@mytheme@style{#1}}
+\ExecuteOptionsBeamer{style=lecture}
+\ProcessOptionsBeamer
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% Colors
+\RequirePackage{xcolor}
+
+\definecolor{Gray}{HTML}{808080}
+
+\def\beamer@mytheme@stylegold{gold}
+\def\beamer@mytheme@styleorange{orange}
+\def\beamer@mytheme@stylered{red}
+\def\beamer@mytheme@stylegray{gray}
+
+\ifx\beamer@mytheme@style\beamer@mytheme@stylegold
+    \definecolor{primary}{HTML}{08457E}
+    \definecolor{secondary}{HTML}{B8860B}
+    \definecolor{tertiary}{HTML}{B22222}
+    \definecolor{text}{HTML}{000000}
+    \setbeamercolor*{framesubtitle}{fg=secondary,bg=white}
+\else\ifx\beamer@mytheme@style\beamer@mytheme@stylered
+    \definecolor{primary}{HTML}{08457E}
+    \definecolor{secondary}{HTML}{B02A30}
+    \definecolor{tertiary}{HTML}{006400}
+    \definecolor{text}{HTML}{000000}
+    \setbeamercolor*{framesubtitle}{fg=secondary,bg=white}
+\else\ifx\beamer@mytheme@style\beamer@mytheme@styleorange
+    \definecolor{primary}{HTML}{08457E}
+    \definecolor{secondary}{HTML}{CC5500}
+    \definecolor{tertiary}{HTML}{008B8B}
+    \definecolor{text}{HTML}{000000}
+    \setbeamercolor*{framesubtitle}{fg=secondary,bg=white}
+\else\ifx\beamer@mytheme@style\beamer@mytheme@stylegray
+    \definecolor{primary}{HTML}{08457E}
+    \definecolor{secondary}{HTML}{B02A30}
+    \definecolor{tertiary}{HTML}{808080}
+    \definecolor{text}{HTML}{424242}
+    \setbeamercolor*{framesubtitle}{fg=Gray,bg=white}
+\else
+    % lecture (default)
+    \definecolor{primary}{HTML}{08457E}
+    \definecolor{secondary}{HTML}{F209B1}
+    \definecolor{tertiary}{HTML}{33CCCC}
+    \definecolor{text}{HTML}{000000}
+    \setbeamercolor*{framesubtitle}{fg=secondary,bg=white}
+\fi\fi\fi\fi
+
+\setbeamercolor*{background canvas}{bg=white}
+\setbeamercolor*{footer}{fg=Gray}
+\setbeamercolor*{footer text}{fg=primary}
+\setbeamercolor*{footline}{fg=Gray}
+\setbeamercolor*{frametitle}{fg=primary,bg=white}
+\setbeamercolor*{title}{fg=primary,bg=white}
+\setbeamercolor*{author}{fg=text,bg=white}
+\setbeamercolor*{part title}{fg=primary}
+\setbeamercolor*{caption name}{fg=primary}
+\setbeamercolor*{section in toc}{fg=black}
+\setbeamercolor*{secondary}{fg=secondary!10,bg=white}
+\setbeamercolor*{alerted text}{fg=secondary,bg=white}
+\setbeamercolor*{example text}{fg=tertiary,bg=white}
+\setbeamercolor*{normal text}{fg=text,bg=white}
+\setbeamercolor*{itemize item}{fg=primary}
+\setbeamercolor*{itemize subitem}{fg=primary}
+\setbeamercolor*{itemize subsubitem}{fg=primary}
+\setbeamercolor*{enumerate item}{fg=primary}
+\setbeamercolor*{enumerate subitem}{fg=primary}
+\setbeamercolor*{enumerate subsubitem}{fg=primary}
+\setbeamercolor*{description item}{fg=primary}
+\setbeamercolor*{caption name}{fg=text}
+\setbeamercolor{button}{bg=primary,fg=white}
+\setbeamercolor{block title}{bg=white,fg=primary}
+\setbeamercolor{block body}{fg=text}
+\setbeamercolor{block title alerted}{bg=white,fg=secondary}
+\setbeamercolor{block body alerted}{bg=white,fg=text}
+\setbeamercolor{block title example}{bg=white,fg=tertiary}
+\setbeamercolor{block body example}{bg=white,fg=text}
+\setbeamercolor*{bibliography item}{fg=primary}
+\setbeamercolor*{bibliography entry author}{fg=primary}
+\setbeamercolor*{bibliography entry title}{fg=text}
+\setbeamercolor*{bibliography entry location}{fg=text}
+\setbeamercolor*{bibliography entry note}{fg=text}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% Fonts
+\setbeamerfont{title}{series=\bfseries,parent=structure}
+\setbeamerfont{subtitle}{series=\normalfont,parent=structure}
+\setbeamerfont{frametitle}{series=\bfseries,parent=structure}
+\setbeamerfont{framesubtitle}{series=\normalfont}
+\setbeamerfont{author}{series=\bfseries,parent=structure}
+\setbeamerfont*{footnote}{size=\fontsize{6}{6}}
+\setbeamerfont*{caption name}{series=\bfseries}
+\setbeamerfont*{toc title}{size=\normalfont,series=\bfseries}
+\setbeamerfont*{toc subtitle}{size=\small}
+\setbeamerfont{block title}{series=\bfseries}
+\setbeamerfont*{bibliography entry author}{size=\normalsize,series=\normalfont}
+\setbeamerfont*{bibliography entry title}{size=\normalsize,series=\bfseries}
+\setbeamerfont*{bibliography entry location}{size=\small,series=\normalfont}
+\setbeamerfont*{bibliography entry note}{size=\small,series=\normalfont}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% Inner theme: TOC
+\RequirePackage{tikz}
+
+\makeatletter
+\AtBeginPart{%
+  \beamer@tocsectionnumber=0\relax
+  \setcounter{section}{0}
+}
+\makeatother
+
+\newcounter{sectionpage}
+
+\makeatletter
+\newcommand\Dotfill{\leavevmode\cleaders\hb@xt@0.8em{\hss.\hss}\hfill\kern\z@}
+\makeatother
+
+\makeatletter
+\patchcmd{\beamer@section}
+    {\addtocontents{toc}{\protect\beamer@sectionintoc{\the\c@section}{#2}{\the\c@page}{\the\c@part}{\the\beamer@tocsectionnumber}}}
+    {\setcounter{sectionpage}{\insertframenumber}\stepcounter{sectionpage}%
+     \addtocontents{toc}{\protect\beamer@sectionintoc{\the\c@section}{#2\Dotfill\thesectionpage}{\the\c@page}{\the\c@part}{\the\beamer@tocsectionnumber}}}
+    {}{}
+
+\patchcmd{\beamer@subsection}
+    {\addtocontents{toc}{\protect\beamer@subsectionintoc{\the\c@section}{\the\c@subsection}{#2}{\the\c@page}{\the\c@part}{\the\beamer@tocsectionnumber}}}
+    {\setcounter{sectionpage}{\insertframenumber}\stepcounter{sectionpage}%
+     \addtocontents{toc}{\protect\beamer@subsectionintoc{\the\c@section}{\the\c@subsection}{#2\Dotfill\thesectionpage}{\the\c@page}{\the\c@part}{\the\beamer@tocsectionnumber}}}
+    {}{}
+
+\patchcmd{\beamer@subsubsection}
+    {\addtocontents{toc}{\protect\beamer@subsubsectionintoc{\the\c@section}{\the\c@subsection}{\the\c@subsubsection}{#2}{\the\c@page}{\the\c@part}{\the\beamer@tocsectionnumber}}}
+    {\setcounter{sectionpage}{\insertframenumber}\stepcounter{sectionpage}%
+     \addtocontents{toc}{\protect\beamer@subsubsectionintoc{\the\c@section}{\the\c@subsection}{\the\c@subsubsection}{#2\Dotfill\thesectionpage}{\the\c@page}{\the\c@part}{\the\beamer@tocsectionnumber}}}
+    {}{}
+\makeatother
+
+\setbeamertemplate{section in toc}{\leavevmode{\bfseries\color{black}{\inserttocsectionnumber}}\hspace{0.3cm}\textbf{\color{black}{\inserttocsection}}\vspace{0.3em}}
+\setbeamertemplate{subsection in toc}{\leavevmode\leftskip=4.2em\rlap{\hskip-2em\small\inserttocsectionnumber.\inserttocsubsectionnumber}\hspace{0.2cm}\small\inserttocsubsection\par\vspace{0.3em}}
+\setbeamertemplate{subsubsection in toc}{\leavevmode\leftskip=8.2em\rlap{\hskip-2em\small\inserttocsectionnumber.\inserttocsubsectionnumber.\inserttocsubsubsectionnumber}\hspace{0.4cm}\small\inserttocsubsubsection\par\vspace{0.3em}}
+
+% Emphasis commands
+\newenvironment{emphasize}[1]{\textcolor{primary}{#1}}{}
+\newenvironment{example}[1]{\textcolor{tertiary}{#1}}{}
+
+% Blocks
+\setbeamertemplate{block begin}{
+  \par\vskip\medskipamount%
+  \begin{beamercolorbox}[colsep*=2mm]{block title}
+    \usebeamerfont*{block title}\insertblocktitle%
+  \end{beamercolorbox}%
+  {\parskip0pt\par}%
+  \ifbeamercolorempty[bg]{block title}{}
+  {\ifbeamercolorempty[bg]{block body}{}{\nointerlineskip\vskip-0.5pt}}%
+  \usebeamerfont{block body}%
+  \begin{beamercolorbox}[colsep*=2mm,vmode]{block body}%
+    \ifbeamercolorempty[bg]{block body}{\vskip-.25ex}{\vskip-.75ex}\vbox{}%
+}
+\setbeamertemplate{block example begin}{
+  \par\vskip\medskipamount%
+  \begin{beamercolorbox}[colsep*=2mm]{block title example}
+    \usebeamerfont*{block title example}\insertblocktitle%
+  \end{beamercolorbox}%
+  {\parskip0pt\par}%
+  \ifbeamercolorempty[bg]{block title example}{}
+  {\ifbeamercolorempty[bg]{block body example}{}{\nointerlineskip\vskip-0.5pt}}%
+  \usebeamerfont{block body example}%
+  \begin{beamercolorbox}[colsep*=2mm,vmode]{block body example}%
+    \ifbeamercolorempty[bg]{block body example}{\vskip-.25ex}{\vskip-.75ex}\vbox{}%
+}
+\setbeamertemplate{block alerted begin}{
+  \par\vskip\medskipamount%
+  \begin{beamercolorbox}[colsep*=2mm]{block title alerted}
+    \usebeamerfont*{block title alerted}\insertblocktitle%
+  \end{beamercolorbox}%
+  {\parskip0pt\par}%
+  \ifbeamercolorempty[bg]{block title alerted}{}
+  {\ifbeamercolorempty[bg]{block body alerted}{}{\nointerlineskip\vskip-0.5pt}}%
+  \usebeamerfont{block body alerted}%
+  \begin{beamercolorbox}[colsep*=2mm,vmode]{block body alerted}%
+    \ifbeamercolorempty[bg]{block body alerted}{\vskip-.25ex}{\vskip-.75ex}\vbox{}%
+}
+
+\setbeamertemplate{caption label separator}[period]
+\setbeamertemplate{itemize subitem}[circle]
+\setbeamerfont{itemize/enumerate subbody}{size=\normalfont}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% Outer theme: frametitle and footer
+\setbeamertemplate{frametitle}{\vspace{0.3cm}\usebeamercolor*[fg]{frametitle}\insertframetitle\par\vskip1pt{\usebeamercolor*[fg]{framesubtitle}\small\insertframesubtitle}\vspace*{0.2cm}}
+
+\makeatletter
+  \CheckCommand*\beamer@checkframetitle{%
+    \@ifnextchar\bgroup\beamer@inlineframetitle{}}
+  \renewcommand*\beamer@checkframetitle{%
+    \global\let\beamer@frametitle\relax\@ifnextchar%
+    \bgroup\beamer@inlineframetitle{}}
+\makeatother
+
+\addtobeamertemplate{frametitle}{
+  \ifx\insertframetitle\empty
+    \ifx\insertframesubtitle\empty
+      \ifx\insertsubsection\empty
+        \frametitle{\insertsectionhead}
+      \else
+        \frametitle{\insertsectionhead}\framesubtitle{\insertsubsectionhead}
+      \fi
+    \else
+      \frametitle{\insertsectionhead}
+    \fi
+  \fi
+}{}
+
+\setbeamertemplate{footline}{
+\hspace*{10mm}
+{\scshape\insertshortauthor\hfill\insertshorttitle\hfill\insertframenumber{} / \inserttotalframenumber}
+\hspace*{10mm}
+\vspace*{0.6cm}
+}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% Navigation and page size
+\setbeamertemplate{navigation symbols}{}
+
+\makeatletter
+    \setlength\beamer@paperwidth{16.00cm}%
+    \setlength\beamer@paperheight{9.00cm}%
+    \geometry{papersize={\beamer@paperwidth,\beamer@paperheight}}
+\makeatother
+\setbeamersize{text margin left=8mm,text margin right=8mm}
+
+\mode<all>

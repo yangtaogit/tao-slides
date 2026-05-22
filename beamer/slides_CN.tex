@@ -1,0 +1,98 @@
+\documentclass[
+11pt,notheorems,hyperref={pdfauthor=whatever},aspectratio=169
+]{beamer}
+
+\input{loadslides_CN.tex}
+
+\title[]{演示文稿标题}
+\subtitle{演示文稿副标题}
+\author[]{张三}
+\institute{某某大学，\\某某学院}
+\date{\today}
+
+\begin{document}
+
+{
+\setbeamertemplate{footline}{}
+\begin{frame}
+  \titlepage
+\end{frame}
+}
+\addtocounter{framenumber}{-1}
+
+\begin{frame}{目录}
+    \tableofcontents
+\end{frame}
+
+\section{引言}
+
+\begin{frame}
+\begin{itemize}
+    \item 这是一个支持\emphasize{\textbf{中英文混排}}的 Beamer 模板。
+    \item 中文字体使用\alert{\textbf{宋体（SimSun）}}，英文字体使用 Helvetica。
+    \item 支持数学公式：$E = mc^2$，以及完整的 \LaTeX{} 功能。
+    \item 本模板适用于\example{\textbf{学术报告、课程讲义}}等场合。
+\end{itemize}
+\end{frame}
+
+\section{数学公式}
+
+\begin{frame}
+    \begin{itemize}
+        \item 带编号的公式：
+        \begin{equation}
+            y_t = \beta x_t + \varepsilon_t
+        \end{equation}
+        \item 矩阵形式：
+        \begin{equation*}
+            \mathbf{Y} = \boldsymbol{\beta} \mathbf{X} + \boldsymbol{\varepsilon}
+        \end{equation*}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{}{}
+    \begin{theorem}[信息熵]
+        设离散随机变量 $X$ 的取值空间为 $\mathcal{X}$，概率分布为 $p:{\mathcal{X}}\to[0,1]$，则其信息熵为：
+        \begin{equation}
+            \mathrm{H}(X) := -\sum_{x\in\mathcal{X}} p(x)\log p(x) = \mathbb{E}[-\log p(X)]
+        \end{equation}
+    \end{theorem}
+\end{frame}
+
+\section{图表}
+
+\begin{frame}
+    \begin{table}
+        \caption{全球主要城市人口（数据来源：维基百科）}
+        \begin{tabular}{@{}lr@{}}
+          \toprule
+          城市 & 人口\\
+          \midrule
+          上海 & 24,870,895\\
+          北京 & 21,893,095\\
+          重庆 & 32,000,000\\
+          成都 & 20,937,757\\
+          \bottomrule
+        \end{tabular}
+    \end{table}
+\end{frame}
+
+\begin{frame}
+    \begin{figure}
+        \caption{$y = x^2$ 的图像}
+        \begin{tikzpicture}
+            \begin{axis}[
+                width=\textwidth, height=2.2in,
+                xmin=-3, xmax=3, ymin=0, ymax=10,
+            ]
+                \addplot[primary, thick] {x^2};
+            \end{axis}
+        \end{tikzpicture}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{参考文献}
+    \printbibliography
+\end{frame}
+
+\end{document}

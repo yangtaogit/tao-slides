@@ -1,0 +1,82 @@
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% Fonts (XeLaTeX)
+\usepackage{fontspec}
+\usefonttheme{professionalfonts}      % prevent beamer from overriding fonts
+\setsansfont{TeX Gyre Heros}          % Helvetica-compatible sans-serif
+\setmainfont{TeX Gyre Heros}
+\usepackage{xeCJK}
+\setCJKmainfont{SimSun}               % 宋体（简体中文）
+\setCJKsansfont{SimSun}
+\setCJKmonofont{SimSun}
+
+\usepackage[style=red]{styles/beamerthemeelegant}
+
+\newcommand{\makepart}[1]{
+\part{#1} \frame{\partpage}
+}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% Figures
+\RequirePackage{booktabs}
+\RequirePackage{colortbl}
+\RequirePackage{ragged2e}
+\RequirePackage{caption}
+\RequirePackage{subcaption}
+\RequirePackage{tabularx}
+\RequirePackage{array}
+\RequirePackage{multirow}
+\RequirePackage[%
+  natbib=true, backend=biber,%
+  style=apa, isbn=false,url=false,uniquename=false%
+  ]{biblatex}
+\addbibresource{references.bib}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% Figures
+\RequirePackage{wrapfig}
+\RequirePackage{pgfplots}
+\RequirePackage{graphicx}
+\RequirePackage{adjustbox}
+\RequirePackage{environ}
+\pgfplotsset{compat=1.18}
+
+\makeatletter
+\newsavebox{\measure@tikzpicture}
+\NewEnviron{scaletikzpicturetowidth}[1]{%
+  \def\tikz@width{#1}%
+  \def\tikzscale{1}\begin{lrbox}{\measure@tikzpicture}%
+  \BODY
+  \end{lrbox}%
+  \pgfmathparse{#1/\wd\measure@tikzpicture}%
+  \edef\tikzscale{\pgfmathresult}%
+  \BODY
+}
+\makeatother
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% Maths
+\RequirePackage{textcomp}
+\RequirePackage{amsmath}
+\RequirePackage{amsthm}
+\RequirePackage{mathtools}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\setbeamertemplate{theorems}[numbered]
+
+\theoremstyle{definition}
+\newtheorem{fact}{事实}[section]
+\newtheorem{examp}{示例}[section]
+
+\theoremstyle{plain}
+\newtheorem{definition}{定义}[section]
+\newtheorem{proposition}{命题}
+\newtheorem{theorem}{定理}
+\newtheorem{assumption}{假设}
+
+\providecommand{\H}{\mathscr{H}}
+\providecommand{\E}{\mathbb{E}}
+\makeatletter
+\def\munderbar#1{\underline{\sbox\tw@{$#1$}\dp\tw@\z@\box\tw@}}
+\makeatother
