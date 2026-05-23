@@ -7,13 +7,13 @@ A Beamer presentation template based on the [Elegant Slides](https://www.overlea
 ```
 beamer/
 ├── slides.tex            # Main presentation (English)
-├── slides_CN.tex         # Main presentation (Chinese)
+├── slides_chinese.tex         # Main presentation (Chinese)
 ├── references.bib        # Bibliography
 ├── Makefile              # Build system
 └── styles/
     ├── beamerthemeelegant.sty  # Theme (colors, fonts, layout)
     ├── loadslides.tex          # Package configuration (English)
-    └── loadslides_CN.tex       # Package configuration (Chinese, XeLaTeX)
+    └── loadslides_chinese.tex       # Package configuration (Chinese, XeLaTeX)
 ```
 
 ## Building
@@ -35,7 +35,7 @@ Auxiliary files are written to `build/` to keep the working directory clean.
 
 ## Color Themes
 
-Set the `style` option in `loadslides.tex` (or `loadslides_CN.tex`):
+Set the `style` option in `loadslides.tex` (or `loadslides_chinese.tex`):
 
 ```latex
 \usepackage[style=red]{styles/beamerthemeelegant}
@@ -51,7 +51,7 @@ Set the `style` option in `loadslides.tex` (or `loadslides_CN.tex`):
 
 ## Chinese Support
 
-`slides_CN.tex` uses XeLaTeX with `xeCJK`. The Chinese font is set to **SimSun** (宋体). The font must be available to fontconfig — on WSL, copy it from the Windows font directory:
+`slides_chinese.tex` uses XeLaTeX with `xeCJK`. The Chinese font is set to **SimSun** (宋体). The font must be available to fontconfig — on WSL, copy it from the Windows font directory:
 
 ```bash
 mkdir -p ~/.local/share/fonts
