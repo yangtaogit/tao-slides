@@ -8,12 +8,12 @@ A Beamer presentation template based on the [Elegant Slides](https://www.overlea
 beamer/
 ├── slides.tex            # Main presentation (English)
 ├── slides_CN.tex         # Main presentation (Chinese)
-├── loadslides.tex        # Package configuration (English)
-├── loadslides_CN.tex     # Package configuration (Chinese, XeLaTeX)
 ├── references.bib        # Bibliography
 ├── Makefile              # Build system
 └── styles/
-    └── beamerthemeelegant.sty  # Theme (colors, fonts, layout)
+    ├── beamerthemeelegant.sty  # Theme (colors, fonts, layout)
+    ├── loadslides.tex          # Package configuration (English)
+    └── loadslides_CN.tex       # Package configuration (Chinese, XeLaTeX)
 ```
 
 ## Building
