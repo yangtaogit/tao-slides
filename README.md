@@ -1,4 +1,4 @@
-# SlidesTemplate
+# Tao Slides
 
 A Beamer presentation template based on the [Elegant Slides](https://www.overleaf.com/latex/templates/elegant-slides/grfrxqmqkqkj) theme by Lars Spreng, adapted for 16:9 format with simplified structure and Chinese language support.
 
