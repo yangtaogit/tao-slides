@@ -8,6 +8,12 @@ This repository contains matching Beamer and PowerPoint slide templates.
 - PowerPoint text fonts are set to **Microsoft YaHei**.
 - Beamer uses **Microsoft YaHei** when available, with compile-safe fallbacks.
 
+## Preview
+
+[Open the Chinese Beamer PDF](beamer/slides_chinese.pdf)
+
+![Chinese Beamer preview](docs/slides_chinese_preview.png)
+
 ## Slide Spec
 
 - Page size: `33.867 cm x 19.05 cm`.

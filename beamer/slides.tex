@@ -19,6 +19,15 @@
 
 \begin{frame}{Page Title}{Subtitle}
   \begin{itemize}
+    \item This template creates concise and consistent Beamer presentations.
+    \item The visual style uses a white canvas, navy titles, a title rule, and bottom-right page numbers.
+    \item Font sizes: page titles use 36 pt, subtitles use 24 pt, and body text uses 20 pt.
+    \item Text uses Microsoft YaHei when available, and formulas use Computer Modern.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Page Title}{Subtitle}
+  \begin{itemize}
     \item Item 1
     \item Item 2
     \item Item 3
@@ -38,6 +47,19 @@
 
 \begin{frame}{Page Title}{Subtitle}
   \taobody{Content}
+\end{frame}
+
+\begin{frame}{Page Title}{Subtitle}
+  \taobody{%
+    Mathematical formulas use the Computer Modern font.
+
+    \begin{align*}
+      \frac{\partial n}{\partial t}
+        &= \frac{1}{q}\nabla \cdot \mathbf{J}_n + G_n - R_n, \\
+      \frac{\partial p}{\partial t}
+        &= -\frac{1}{q}\nabla \cdot \mathbf{J}_p + G_p - R_p.
+    \end{align*}
+  }
 \end{frame}
 
 \end{document}

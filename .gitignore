@@ -23,6 +23,7 @@ missfont.log
 
 # Output PDF (comment out if you want to track compiled PDFs)
 *.pdf
+!beamer/slides_chinese.pdf
 
 # Generated previews and local PowerPoint artifacts
 outputs/
