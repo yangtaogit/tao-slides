@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tao HTML Report Template</title>
+  <style>
+    :root {
+      --tao-navy: #002060;
+      --tao-red: #c00000;
+      --tao-gray: #666666;
+      --paper-w: 33.867cm;
+      --paper-h: 19.05cm;
+      --margin-x: 1.4cm;
+      --title-size: 36pt;
+      --subtitle-size: 24pt;
+      --body-size: 20pt;
+      --body-line: 1.4;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: #f2f2f2;
+      color: #000;
+      font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif;
+      font-size: var(--body-size);
+      font-weight: 700;
+      line-height: var(--body-line);
+    }
+
+    body {
+      margin: 0;
+      padding: 24px;
+    }
+
+    .deck {
+      display: grid;
+      gap: 24px;
+      justify-items: center;
+    }
+
+    .slide {
+      position: relative;
+      width: var(--paper-w);
+      height: var(--paper-h);
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16);
+      break-after: page;
+    }
+
+    .title-slide {
+      display: grid;
+      grid-template-rows: 4.7cm auto;
+      text-align: center;
+    }
+
+    .title-block {
+      grid-row: 2;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    .report-title {
+      color: var(--tao-navy);
+      font-size: var(--title-size);
+      line-height: 1.2;
+    }
+
+    .report-author,
+    .report-institute,
+    .report-date {
+      font-size: var(--subtitle-size);
+      line-height: 1.25;
+    }
+
+    .report-author {
+      margin-top: 0.92cm;
+      color: var(--tao-navy);
+    }
+
+    .report-institute {
+      margin-top: 0.48cm;
+    }
+
+    .report-date {
+      margin-top: 1.45cm;
+    }
+
+    .frame-header {
+      padding: 0.58cm var(--margin-x) 0;
+      text-align: center;
+    }
+
+    .frame-title {
+      color: var(--tao-navy);
+      font-size: var(--title-size);
+      line-height: 1.2;
+    }
+
+    .title-rule {
+      width: 31cm;
+      height: 3pt;
+      margin: 0.34cm auto 0;
+      background: var(--tao-navy);
+    }
+
+    .frame-subtitle {
+      margin: 1.22cm 0 0;
+      padding-left: 0.95cm;
+      color: var(--tao-navy);
+      font-size: var(--subtitle-size);
+      line-height: 1.25;
+      text-align: left;
+    }
+
+    .content {
+      padding: 0.34cm calc(var(--margin-x) + 0.95cm) 1.25cm;
+      font-size: var(--body-size);
+      line-height: var(--body-line);
+    }
+
+    .content.no-subtitle {
+      padding-top: 1.22cm;
+    }
+
+    ul,
+    ol {
+      margin: 0;
+      padding-left: 1.9cm;
+    }
+
+    li {
+      margin: 0 0 0.32cm;
+      padding-left: 0.42cm;
+    }
+
+    ul > li::marker {
+      content: "○";
+      font-size: 0.9em;
+    }
+
+    ul ul {
+      margin-top: 0.16cm;
+      padding-left: 1.45cm;
+    }
+
+    ul ul > li::marker {
+      content: "•";
+      font-size: 0.8em;
+    }
+
+    .emphasis,
+    .example {
+      color: var(--tao-navy);
+    }
+
+    .alert {
+      color: var(--tao-red);
+    }
+
+    .columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2cm;
+      align-items: start;
+    }
+
+    .figure {
+      width: 100%;
+      min-height: 7.2cm;
+      border: 1.2pt solid var(--tao-navy);
+      display: grid;
+      place-items: center;
+      color: var(--tao-navy);
+      text-align: center;
+    }
+
+    .caption {
+      margin-top: 0.26cm;
+      color: var(--tao-gray);
+      font-size: 14pt;
+      font-weight: 400;
+      text-align: center;
+    }
+
+    .equation,
+    pre {
+      margin: 0.2cm 0 0;
+      color: #000;
+      font-family: "Cambria Math", "Times New Roman", serif;
+      font-size: 18pt;
+      font-weight: 400;
+      line-height: 1.45;
+      white-space: pre-wrap;
+    }
+
+    pre {
+      padding: 0.35cm 0.45cm;
+      border-left: 3pt solid var(--tao-navy);
+      background: #f7f7f7;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 15pt;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 16pt;
+      line-height: 1.35;
+    }
+
+    th,
+    td {
+      padding: 0.18cm 0.28cm;
+      border-bottom: 1pt solid #bfbfbf;
+      text-align: left;
+    }
+
+    th {
+      color: var(--tao-navy);
+      border-bottom: 2pt solid var(--tao-navy);
+    }
+
+    .page-number {
+      position: absolute;
+      right: 1.46cm;
+      bottom: 0.72cm;
+      color: var(--tao-gray);
+      font-size: 14pt;
+      font-weight: 400;
+      line-height: 1;
+    }
+
+    @page {
+      size: 33.867cm 19.05cm;
+      margin: 0;
+    }
+
+    @media print {
+      html,
+      body {
+        width: var(--paper-w);
+        background: #fff;
+      }
+
+      body {
+        padding: 0;
+      }
+
+      .deck {
+        display: block;
+      }
+
+      .slide {
+        width: var(--paper-w);
+        height: var(--paper-h);
+        box-shadow: none;
+      }
+    }
+
+    @media screen and (max-width: 1400px) {
+      .slide {
+        transform: scale(0.68);
+        transform-origin: top center;
+        margin-bottom: -6.1cm;
+      }
+    }
+
+    @media screen and (max-width: 900px) {
+      body {
+        padding: 12px;
+      }
+
+      .deck {
+        gap: 12px;
+      }
+
+      .slide {
+        transform: scale(0.42);
+        margin-bottom: -10.9cm;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="deck">
+    <section class="slide title-slide" aria-label="封面">
+      <div class="title-block">
+        <h1 class="report-title">报告标题</h1>
+        <p class="report-author">姓名</p>
+        <p class="report-institute">单位</p>
+        <p class="report-date">20XX年XX月XX日</p>
+      </div>
+    </section>
+
+    <section class="slide" aria-label="目录">
+      <header class="frame-header">
+        <h2 class="frame-title">目录</h2>
+        <div class="title-rule"></div>
+      </header>
+      <div class="content no-subtitle">
+        <ol>
+          <li>研究背景与问题定义</li>
+          <li>方法框架与关键假设</li>
+          <li>实验结果与对比分析</li>
+          <li>结论与后续工作</li>
+        </ol>
+      </div>
+      <div class="page-number">1</div>
+    </section>
+
+    <section class="slide" aria-label="要点页">
+      <header class="frame-header">
+        <h2 class="frame-title">页标题</h2>
+        <div class="title-rule"></div>
+        <p class="frame-subtitle">副标题</p>
+      </header>
+      <div class="content">
+        <ul>
+          <li>本模板用于创建简洁、统一的 HTML 报告页面。</li>
+          <li>视觉风格包含白色背景、主题蓝标题、标题横线和右下角页码。</li>
+          <li>字号规范：页标题 36 pt，副标题 24 pt，正文 20 pt。</li>
+          <li>中文文本优先使用 Microsoft YaHei，数学公式使用衬线字体。</li>
+        </ul>
+      </div>
+      <div class="page-number">2</div>
+    </section>
+
+    <section class="slide" aria-label="强调样式">
+      <header class="frame-header">
+        <h2 class="frame-title">强调样式</h2>
+        <div class="title-rule"></div>
+        <p class="frame-subtitle">与 Beamer 命令对应</p>
+      </header>
+      <div class="content">
+        <ul>
+          <li>普通正文项目</li>
+          <li><span class="emphasis">强调文本</span> 对应 Beamer 中的 <code>\emphasize</code></li>
+          <li><span class="alert">重要文本</span> 对应 Beamer 中的 <code>\alert</code></li>
+          <li>
+            二级项目
+            <ul>
+              <li>普通</li>
+              <li><span class="example">示例</span></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="page-number">3</div>
+    </section>
+
+    <section class="slide" aria-label="双栏布局">
+      <header class="frame-header">
+        <h2 class="frame-title">双栏布局</h2>
+        <div class="title-rule"></div>
+        <p class="frame-subtitle">文字与图示</p>
+      </header>
+      <div class="content">
+        <div class="columns">
+          <ul>
+            <li>左侧放置关键结论、实验设置或分析步骤。</li>
+            <li>保持项目数量克制，避免页面信息过密。</li>
+            <li>用主题蓝强调结构性信息。</li>
+          </ul>
+          <div>
+            <div class="figure">替换为图片、图表或截图</div>
+            <p class="caption">图 1. 图表说明文字</p>
+          </div>
+        </div>
+      </div>
+      <div class="page-number">4</div>
+    </section>
+
+    <section class="slide" aria-label="公式页">
+      <header class="frame-header">
+        <h2 class="frame-title">公式页</h2>
+        <div class="title-rule"></div>
+        <p class="frame-subtitle">数学表达</p>
+      </header>
+      <div class="content">
+        <p>数学公式建议使用 MathJax 或渲染后的 SVG/PNG；静态模板中可先保留文本占位。</p>
+        <div class="equation">
+∂n/∂t = (1/q) ∇ · J<sub>n</sub> + G<sub>n</sub> - R<sub>n</sub>
+∂p/∂t = -(1/q) ∇ · J<sub>p</sub> + G<sub>p</sub> - R<sub>p</sub>
+        </div>
+      </div>
+      <div class="page-number">5</div>
+    </section>
+
+    <section class="slide" aria-label="表格页">
+      <header class="frame-header">
+        <h2 class="frame-title">结果对比</h2>
+        <div class="title-rule"></div>
+        <p class="frame-subtitle">表格模板</p>
+      </header>
+      <div class="content">
+        <table>
+          <thead>
+            <tr>
+              <th>方案</th>
+              <th>指标 A</th>
+              <th>指标 B</th>
+              <th>备注</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Baseline</td>
+              <td>0.82</td>
+              <td>12.4 ms</td>
+              <td>参考设置</td>
+            </tr>
+            <tr>
+              <td>Method 1</td>
+              <td>0.89</td>
+              <td>10.8 ms</td>
+              <td><span class="emphasis">推荐</span></td>
+            </tr>
+            <tr>
+              <td>Method 2</td>
+              <td>0.87</td>
+              <td>9.6 ms</td>
+              <td><span class="alert">需复核</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="page-number">6</div>
+    </section>
+
+    <section class="slide" aria-label="代码页">
+      <header class="frame-header">
+        <h2 class="frame-title">代码或流程</h2>
+        <div class="title-rule"></div>
+        <p class="frame-subtitle">保留简洁边界</p>
+      </header>
+      <div class="content">
+        <pre><code>for sample in dataset:
+    result = model.evaluate(sample)
+    report.append(result)</code></pre>
+      </div>
+      <div class="page-number">7</div>
+    </section>
+
+    <section class="slide" aria-label="结论页">
+      <header class="frame-header">
+        <h2 class="frame-title">结论</h2>
+        <div class="title-rule"></div>
+        <p class="frame-subtitle">总结与后续工作</p>
+      </header>
+      <div class="content">
+        <ul>
+          <li>结论一：概括最重要的发现。</li>
+          <li>结论二：说明方法带来的改进。</li>
+          <li>后续工作：列出下一步验证、扩展或工程化方向。</li>
+        </ul>
+      </div>
+      <div class="page-number">8</div>
+    </section>
+  </main>
+</body>
+</html>
