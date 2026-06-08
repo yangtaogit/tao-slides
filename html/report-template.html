@@ -9,8 +9,8 @@
       --tao-navy: #002060;
       --tao-red: #c00000;
       --tao-gray: #666666;
-      --paper-w: 33.867cm;
-      --paper-h: 19.05cm;
+      --paper-w: 1280px;
+      --paper-h: 720px;
       --margin-x: 1.4cm;
       --title-size: 36pt;
       --subtitle-size: 24pt;
@@ -23,26 +23,50 @@
     }
 
     html {
-      background: #f2f2f2;
+      background: #111;
       color: #000;
       font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif;
       font-size: var(--body-size);
       font-weight: 700;
       line-height: var(--body-line);
+      width: 100%;
+      height: 100%;
     }
 
     body {
+      width: 100%;
+      height: 100%;
       margin: 0;
-      padding: 24px;
+      padding: 0;
+      overflow: hidden;
+      background: #111;
+    }
+
+    html:fullscreen,
+    html:fullscreen body {
+      background: #fff;
+    }
+
+    html:fullscreen .slide {
+      box-shadow: none;
+    }
+
+    html::backdrop {
+      background: #fff;
     }
 
     .deck {
-      display: grid;
-      gap: 24px;
-      justify-items: center;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: var(--paper-w);
+      height: var(--paper-h);
+      transform: translate(-50%, -50%) scale(var(--deck-scale, 1));
+      transform-origin: center;
     }
 
     .slide {
+      display: none;
       position: relative;
       width: var(--paper-w);
       height: var(--paper-h);
@@ -52,10 +76,17 @@
       break-after: page;
     }
 
+    .slide.active {
+      display: block;
+    }
+
     .title-slide {
-      display: grid;
       grid-template-rows: 4.7cm auto;
       text-align: center;
+    }
+
+    .title-slide.active {
+      display: grid;
     }
 
     .title-block {
@@ -246,6 +277,11 @@
     }
 
     @media print {
+      :root {
+        --paper-w: 33.867cm;
+        --paper-h: 19.05cm;
+      }
+
       html,
       body {
         width: var(--paper-w);
@@ -253,47 +289,35 @@
       }
 
       body {
+        display: block;
+        width: var(--paper-w);
+        height: auto;
+        min-height: auto;
         padding: 0;
+        overflow: visible;
       }
 
       .deck {
+        position: static;
         display: block;
+        width: var(--paper-w);
+        height: auto;
+        transform: none;
       }
 
       .slide {
+        display: block;
         width: var(--paper-w);
         height: var(--paper-h);
         box-shadow: none;
       }
-    }
 
-    @media screen and (max-width: 1400px) {
-      .slide {
-        transform: scale(0.68);
-        transform-origin: top center;
-        margin-bottom: -6.1cm;
-      }
-    }
-
-    @media screen and (max-width: 900px) {
-      body {
-        padding: 12px;
-      }
-
-      .deck {
-        gap: 12px;
-      }
-
-      .slide {
-        transform: scale(0.42);
-        margin-bottom: -10.9cm;
-      }
     }
   </style>
 </head>
 <body>
-  <main class="deck">
-    <section class="slide title-slide" aria-label="封面">
+  <main class="deck" aria-live="polite">
+    <section class="slide title-slide active" aria-label="封面">
       <div class="title-block">
         <h1 class="report-title">报告标题</h1>
         <p class="report-author">姓名</p>
@@ -467,5 +491,81 @@
       <div class="page-number">8</div>
     </section>
   </main>
+
+  <script>
+    (() => {
+      const deck = document.querySelector(".deck");
+      const slides = Array.from(document.querySelectorAll(".slide"));
+      let current = 0;
+
+      const setScale = () => {
+        const scale = Math.min(
+          window.innerWidth / deck.offsetWidth,
+          window.innerHeight / deck.offsetHeight
+        );
+        document.documentElement.style.setProperty("--deck-scale", scale);
+      };
+
+      const syncFrameNumbers = () => {
+        slides.forEach((slide, index) => {
+          const frameNumber = slide.querySelector(".page-number");
+          if (frameNumber) {
+            frameNumber.textContent = String(index);
+          }
+        });
+      };
+
+      const showSlide = (index) => {
+        current = Math.max(0, Math.min(index, slides.length - 1));
+        slides.forEach((slide, slideIndex) => {
+          slide.classList.toggle("active", slideIndex === current);
+          slide.setAttribute("aria-hidden", String(slideIndex !== current));
+        });
+        history.replaceState(null, "", `#${current + 1}`);
+      };
+
+      const step = (delta) => {
+        showSlide(current + delta);
+      };
+
+      const toggleFullscreen = async () => {
+        if (!document.fullscreenElement) {
+          await document.documentElement.requestFullscreen();
+        } else {
+          await document.exitFullscreen();
+        }
+      };
+
+      document.addEventListener("keydown", (event) => {
+        const tagName = event.target.tagName.toLowerCase();
+        if (tagName === "input" || tagName === "textarea" || event.target.isContentEditable) {
+          return;
+        }
+
+        if (event.key === "ArrowRight" || event.key === "PageDown" || event.key === " ") {
+          event.preventDefault();
+          step(1);
+        } else if (event.key === "ArrowLeft" || event.key === "PageUp" || event.key === "Backspace") {
+          event.preventDefault();
+          step(-1);
+        } else if (event.key === "Home") {
+          event.preventDefault();
+          showSlide(0);
+        } else if (event.key === "End") {
+          event.preventDefault();
+          showSlide(slides.length - 1);
+        } else if (event.key.toLowerCase() === "f") {
+          event.preventDefault();
+          toggleFullscreen();
+        }
+      });
+
+      window.addEventListener("resize", setScale);
+
+      syncFrameNumbers();
+      setScale();
+      showSlide(Number.parseInt(location.hash.slice(1), 10) - 1 || 0);
+    })();
+  </script>
 </body>
 </html>
