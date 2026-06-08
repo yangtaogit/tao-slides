@@ -1,90 +1,62 @@
+% Shared package and font setup for Tao Slides Beamer.
+% Build with XeLaTeX so the Beamer template can mirror the PowerPoint typography.
 
-% Copyright (c) 2022 by Lars Spreng
-% This work is licensed under the Creative Commons Attribution 4.0 International License. 
-% To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
-
-%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-% Add your packages and commands to this file
-%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-% Fonts
-% \RequirePackage{palatino} % for serif slides
-% \usefonttheme{serif}
-\RequirePackage[scaled]{helvet} % for sans-serif slides
-
-\RequirePackage[utf8]{inputenc}
-\RequirePackage[T1]{fontenc}
-
-
-\usepackage[style=lecture]{styles/beamerthemeelegant}
-
-\newcommand{\makepart}[1]{ % For convenience
-\part{#1} \frame{\partpage}
+\usepackage{fontspec}
+\usefonttheme{professionalfonts}
+\IfFileExists{/mnt/c/Windows/Fonts/msyh.ttc}{
+  \setsansfont[
+    Path=/mnt/c/Windows/Fonts/,
+    BoldFont=msyhbd.ttc
+  ]{msyh.ttc}
+  \setmainfont[
+    Path=/mnt/c/Windows/Fonts/,
+    BoldFont=msyhbd.ttc
+  ]{msyh.ttc}
+}{
+  \IfFontExistsTF{Microsoft YaHei}{
+    \setsansfont{Microsoft YaHei}
+    \setmainfont{Microsoft YaHei}
+  }{
+  \setsansfont{TeX Gyre Heros}
+  \setmainfont{TeX Gyre Heros}
+  }
 }
 
-%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\usepackage{styles/beamerthemetao}
 
-%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-% Figures
+\newcommand{\makepart}[1]{
+  \part{#1}
+  {
+    \setbeamertemplate{footline}{}
+    \begin{frame}
+      \partpage
+    \end{frame}
+  }
+}
+
 \RequirePackage{booktabs}
 \RequirePackage{colortbl}
 \RequirePackage{ragged2e}
-\RequirePackage{schemabloc}
-%\RequirePackage{natbib}
-\RequirePackage{caption}
-\RequirePackage{subcaption}
 \RequirePackage{tabularx}
 \RequirePackage{array}
 \RequirePackage{multirow}
-\RequirePackage[%
-  natbib=true, backend=biber,%
-  style=apa, isbn=false,url=false,uniquename=false%, useprefix=true%
-  ]{biblatex}
-\addbibresource{references.bib}
-\newcolumntype{Y}{>{\centering\arraybackslash}X}
-
-%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-% Figures
+\RequirePackage{caption}
+\RequirePackage{subcaption}
 \RequirePackage{wrapfig}
 \RequirePackage{pgfplots}
 \RequirePackage{graphicx}
 \RequirePackage{adjustbox}
 \RequirePackage{environ}
-\pgfplotsset{compat=1.18}
-
-\makeatletter
-\newsavebox{\measure@tikzpicture}
-\NewEnviron{scaletikzpicturetowidth}[1]{%
-  \def\tikz@width{#1}%
-  \def\tikzscale{1}\begin{lrbox}{\measure@tikzpicture}%
-  \BODY
-  \end{lrbox}%
-  \pgfmathparse{#1/\wd\measure@tikzpicture}%
-  \edef\tikzscale{\pgfmathresult}%
-  \BODY
-}
-\makeatother
-%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-% Maths 
 \RequirePackage{textcomp}
-\RequirePackage{amsmath} 
+\RequirePackage{amsmath}
 \RequirePackage{amsthm}
 \RequirePackage{mathtools}
-%\RequirePackage{bbm}
-%\RequirePackage{algorithm}
-%\RequirePackage[osf,sc]{mathpazo}
-%\RequirePackage{pifont}
-%\newcommand{\xmark}{\ding{55}}%
-%\numberwithin{equation}{section}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\pgfplotsset{compat=1.18}
+
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
-
-\setbeamertemplate{theorems}[numbered] % to number
+\setbeamertemplate{theorems}[numbered]
 
 \theoremstyle{definition}
 \newtheorem{fact}{Fact}[section]
@@ -96,10 +68,5 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem{assumption}{Assumption}
 
-\providecommand{\H}{\mathscr{H}}      
+\providecommand{\H}{\mathscr{H}}
 \providecommand{\E}{\mathbb{E}}
-\makeatletter
-\def\munderbar#1{\underline{\sbox\tw@{$#1$}\dp\tw@\z@\box\tw@}}
-\makeatother
-
-%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

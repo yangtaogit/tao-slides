@@ -1,60 +1,56 @@
 # Tao Slides
 
-A Beamer presentation template based on the [Elegant Slides](https://www.overleaf.com/latex/templates/elegant-slides/grfrxqmqkqkj) theme by Lars Spreng, adapted for 16:9 format with simplified structure and Chinese language support.
+This repository contains matching Beamer and PowerPoint slide templates.
+
+- `powerpoint/slides.pptx` is the PowerPoint template. Generated master variants are not maintained.
+- `beamer/` is the LaTeX Beamer template rebuilt to match the PowerPoint visual system.
+- Both templates use the same minimal visual language: white background, navy titles, a single title rule, sparse bullets, and bottom-right page numbers.
+- PowerPoint text fonts are set to **Microsoft YaHei**.
+- Beamer uses **Microsoft YaHei** when available, with compile-safe fallbacks.
+
+## Slide Spec
+
+- Page size: `33.867 cm x 19.05 cm`.
+- Page title: `36 pt`.
+- Title rule: `3 pt`.
+- Subtitle: `24 pt`.
+- Body text: `20 pt`.
 
 ## Structure
 
-```
+```text
 beamer/
-├── slides.tex            # Main presentation (English)
-├── slides_chinese.tex         # Main presentation (Chinese)
-├── references.bib        # Bibliography
-├── Makefile              # Build system
+├── slides.tex                 # English Beamer starter
+├── slides_chinese.tex         # Chinese Beamer starter
+├── Makefile                   # Build system
 └── styles/
-    ├── beamerthemeelegant.sty  # Theme (colors, fonts, layout)
-    ├── loadslides.tex          # Package configuration (English)
-    └── loadslides_chinese.tex       # Package configuration (Chinese, XeLaTeX)
+    ├── beamerthemetao.sty     # Tao Beamer theme
+    ├── loadslides.tex         # English package/font setup
+    └── loadslides_chinese.tex # Chinese package/font setup
+
+powerpoint/
+└── slides.pptx                # PowerPoint template
 ```
 
-## Building
+## Building Beamer
 
-Requires a TeX Live installation with `pdflatex`, `xelatex`, and `biber`.
+The Beamer template builds with XeLaTeX.
 
 ```bash
-# English version
-make
-
-# Chinese version
-make cn
-
-# Remove all build artifacts and output PDFs
+cd beamer
+make      # English version
+make cn   # Chinese version
 make clean
 ```
 
-Auxiliary files are written to `build/` to keep the working directory clean.
+## Fonts
 
-## Color Themes
-
-Set the `style` option in `loadslides.tex` (or `loadslides_chinese.tex`):
-
-```latex
-\usepackage[style=red]{styles/beamerthemeelegant}
-```
-
-| Style     | Primary | Secondary | Tertiary |
-|-----------|---------|-----------|----------|
-| `lecture` | Navy    | Dark Red  | Forest   |
-| `gold`    | Navy    | Gold      | Crimson  |
-| `red`     | Navy    | Pink      | Teal     |
-| `orange`  | Navy    | Orange    | Teal     |
-| `gray`    | Navy    | Dark Red  | Gray     |
-
-## Chinese Support
-
-`slides_chinese.tex` uses XeLaTeX with `xeCJK`. The Chinese font is set to **SimSun** (宋体). The font must be available to fontconfig — on WSL, copy it from the Windows font directory:
+For best cross-format consistency, the Chinese Beamer template uses the Windows Microsoft YaHei font directly when it is available at `/mnt/c/Windows/Fonts/msyh.ttc`. You can also install it into fontconfig manually:
 
 ```bash
 mkdir -p ~/.local/share/fonts
-cp /mnt/c/Windows/Fonts/simsun.ttc ~/.local/share/fonts/
+cp /mnt/c/Windows/Fonts/msyh*.ttc ~/.local/share/fonts/
 fc-cache -f ~/.local/share/fonts/
 ```
+
+If Microsoft YaHei is unavailable, the English Beamer template falls back to TeX Gyre Heros, and the Chinese template falls back to SimSun.

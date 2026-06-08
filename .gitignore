@@ -23,3 +23,9 @@ missfont.log
 
 # Output PDF (comment out if you want to track compiled PDFs)
 *.pdf
+
+# Generated previews and local PowerPoint artifacts
+outputs/
+powerpoint/slides_original.pptx
+powerpoint/slides_master.pptx
+powerpoint/~$*.pptx

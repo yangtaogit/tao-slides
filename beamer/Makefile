@@ -1,5 +1,5 @@
 BUILD = build
-STY   = styles/beamerthemeelegant.sty
+STY   = styles/beamerthemetao.sty
 
 .PHONY: all cn clean
 
@@ -10,16 +10,12 @@ cn: slides_chinese.pdf
 $(BUILD):
 	mkdir -p $(BUILD)
 
-slides.pdf: slides.tex styles/loadslides.tex references.bib $(STY) | $(BUILD)
-	pdflatex -interaction=nonstopmode -output-directory=$(BUILD) slides
-	biber $(BUILD)/slides
-	pdflatex -interaction=nonstopmode -output-directory=$(BUILD) slides
-	pdflatex -interaction=nonstopmode -output-directory=$(BUILD) slides
+slides.pdf: slides.tex styles/loadslides.tex $(STY) | $(BUILD)
+	xelatex -interaction=nonstopmode -output-directory=$(BUILD) slides
+	xelatex -interaction=nonstopmode -output-directory=$(BUILD) slides
 	cp $(BUILD)/slides.pdf .
 
-slides_chinese.pdf: slides_chinese.tex styles/loadslides_chinese.tex references.bib $(STY) | $(BUILD)
-	xelatex -interaction=nonstopmode -output-directory=$(BUILD) slides_chinese
-	biber $(BUILD)/slides_chinese
+slides_chinese.pdf: slides_chinese.tex styles/loadslides_chinese.tex $(STY) | $(BUILD)
 	xelatex -interaction=nonstopmode -output-directory=$(BUILD) slides_chinese
 	xelatex -interaction=nonstopmode -output-directory=$(BUILD) slides_chinese
 	cp $(BUILD)/slides_chinese.pdf .

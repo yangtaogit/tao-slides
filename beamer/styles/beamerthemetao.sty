@@ -1,0 +1,115 @@
+\mode<presentation>
+
+% Minimal Tao Beamer theme matching the reference PDF.
+% The design intentionally keeps only: white canvas, navy titles,
+% one title rule, sparse bullets, and bottom-right page numbers.
+
+\RequirePackage{xcolor}
+\RequirePackage{tikz}
+
+\definecolor{taoNavy}{HTML}{002060}
+\definecolor{taoRed}{HTML}{C00000}
+\definecolor{taoGray}{HTML}{666666}
+
+\colorlet{primary}{taoNavy}
+\colorlet{secondary}{taoRed}
+\colorlet{text}{black}
+
+\setbeamercolor*{background canvas}{bg=white}
+\setbeamercolor*{normal text}{fg=black,bg=white}
+\setbeamercolor*{structure}{fg=taoNavy}
+\setbeamercolor*{title}{fg=taoNavy,bg=white}
+\setbeamercolor*{subtitle}{fg=black,bg=white}
+\setbeamercolor*{author}{fg=taoNavy,bg=white}
+\setbeamercolor*{institute}{fg=black,bg=white}
+\setbeamercolor*{date}{fg=black,bg=white}
+\setbeamercolor*{frametitle}{fg=taoNavy,bg=white}
+\setbeamercolor*{framesubtitle}{fg=taoNavy,bg=white}
+\setbeamercolor*{alerted text}{fg=taoRed,bg=white}
+\setbeamercolor*{example text}{fg=taoNavy,bg=white}
+\setbeamercolor*{itemize item}{fg=black}
+\setbeamercolor*{itemize subitem}{fg=black}
+\setbeamercolor*{enumerate item}{fg=black}
+\setbeamercolor*{caption name}{fg=taoNavy}
+\setbeamercolor*{bibliography item}{fg=taoNavy}
+
+\setbeamerfont{title}{size=\fontsize{36}{43},series=\bfseries}
+\setbeamerfont{subtitle}{size=\fontsize{24}{30},series=\bfseries}
+\setbeamerfont{author}{size=\fontsize{24}{30},series=\bfseries}
+\setbeamerfont{institute}{size=\fontsize{24}{30},series=\bfseries}
+\setbeamerfont{date}{size=\fontsize{24}{30},series=\bfseries}
+\setbeamerfont{frametitle}{size=\fontsize{36}{43},series=\bfseries}
+\setbeamerfont{framesubtitle}{size=\fontsize{24}{30},series=\bfseries}
+\setbeamerfont{normal text}{size=\fontsize{20}{28},series=\bfseries}
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{20}{28},series=\bfseries}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{20}{28},series=\bfseries}
+\setbeamerfont*{footline}{size=\fontsize{14}{17},series=\normalfont}
+\setbeamerfont*{footnote}{size=\fontsize{6}{7}}
+\setbeamerfont*{caption name}{series=\bfseries}
+
+\setbeamertemplate{title page}{
+  \vspace*{4.70cm}
+  \begin{center}
+    {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle\par}
+    \vspace{0.92cm}
+    {\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor\par}
+    \vspace{0.48cm}
+    {\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute\par}
+    \vspace{1.45cm}
+    {\usebeamerfont{date}\usebeamercolor[fg]{date}\insertdate\par}
+  \end{center}
+}
+
+\setbeamertemplate{frametitle}{
+  \vspace*{0.58cm}
+  \makebox[\textwidth][c]{\usebeamerfont{frametitle}\usebeamercolor[fg]{frametitle}\insertframetitle}
+  \vspace{0.34cm}
+  \makebox[\textwidth][c]{\color{taoNavy}\rule{31.00cm}{3pt}}
+  \vspace{1.22cm}
+  \ifx\insertframesubtitle\empty
+  \else
+    \hspace*{0.95cm}{\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertframesubtitle\par}
+    \vspace{0.34cm}
+  \fi
+}
+
+\setbeamertemplate{footline}{
+  \hfill{\usebeamerfont{footline}\textcolor{taoGray}{\insertframenumber}}\hspace*{1.46cm}\vspace*{0.72cm}
+}
+
+\setbeamertemplate{itemize item}{\tikz[baseline=-0.50ex]\draw[line width=1.2pt] (0,0) circle[radius=0.162cm];}
+\setbeamertemplate{itemize subitem}{\raisebox{0.16ex}{\small$\bullet$}}
+\setbeamertemplate{itemize subsubitem}{\raisebox{0.16ex}{\small$\bullet$}}
+\setbeamertemplate{enumerate item}{\insertenumlabel.}
+\setbeamertemplate{blocks}[default]
+\setbeamertemplate{caption label separator}[period]
+\setbeamertemplate{navigation symbols}{}
+
+\setlength{\leftmargini}{2.00cm}
+\setlength{\leftmarginii}{1.45cm}
+\setlength{\leftmarginiii}{1.20cm}
+\setlength{\labelsep}{0.42cm}
+
+\newcommand{\emphasize}[1]{\textcolor{taoNavy}{#1}}
+\newcommand{\example}[1]{\textcolor{taoNavy}{#1}}
+\newcommand{\taoaccent}[1]{\textcolor{taoRed}{#1}}
+\newcommand{\taobody}[1]{%
+  \hspace*{0.95cm}%
+  \begin{minipage}{29.2cm}%
+    {\usebeamerfont{normal text}\selectfont #1\par}%
+  \end{minipage}%
+}
+
+\newcounter{beamerbibcount}
+\setbeamertemplate{bibliography item}{%
+  \stepcounter{beamerbibcount}\textcolor{taoNavy}{[\thebeamerbibcount]}%
+}
+
+\makeatletter
+\setlength\beamer@paperwidth{33.867cm}
+\setlength\beamer@paperheight{19.05cm}
+\geometry{papersize={\beamer@paperwidth,\beamer@paperheight}}
+\makeatother
+\setbeamersize{text margin left=1.40cm,text margin right=1.40cm}
+
+\mode<all>
