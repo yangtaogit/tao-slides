@@ -50,6 +50,45 @@
 \end{frame}
 
 \begin{frame}{Page Title}{Subtitle}
+  \begin{taotwocolumns}
+    \begin{column}{0.48\textwidth}
+      \begin{taotable}
+        \setlength{\tabcolsep}{0.12cm}
+        \begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}Xccc}
+          \taotablehead{Plan} & \taotablehead{A} & \taotablehead{B} & \taotablehead{Note} \\
+          \taotableheadrule
+          Baseline & 0.82 & 12.4 ms & Ref. \\
+          \taotablerowrule
+          Method 1 & 0.89 & 10.8 ms & \emphasize{Best} \\
+          \taotablerowrule
+          Method 2 & 0.87 & 9.6 ms & \taoaccent{Review} \\
+          \taotablerowrule
+        \end{tabularx}
+      \end{taotable}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{center}
+        \begin{tikzpicture}[x=1cm,y=1cm]
+          \draw[taoTableRule,line width=0.6pt] (0,0) -- (12.6,0);
+          \draw[taoTableRule,line width=0.6pt] (0,1.2) -- (12.6,1.2);
+          \draw[taoTableRule,line width=0.6pt] (0,2.4) -- (12.6,2.4);
+          \draw[taoTableRule,line width=0.6pt] (0,3.6) -- (12.6,3.6);
+          \draw[taoNavy,line width=1.5pt] (0,0) -- (0,4.0);
+          \draw[taoNavy,line width=1.5pt] (0,0) -- (12.6,0);
+          \draw[taoNavy,line width=2.2pt]
+            (0.7,1.0) -- (3.2,1.8) -- (5.7,2.3) -- (8.2,2.9) -- (11.4,3.4);
+          \draw[taoRed,line width=2.2pt]
+            (0.7,2.9) -- (3.2,2.4) -- (5.7,2.0) -- (8.2,1.6) -- (11.4,1.1);
+          \node[anchor=west,font=\fontsize{16}{20}\selectfont,text=taoNavy] at (0.2,4.35) {Metric Trend};
+          \node[anchor=west,font=\fontsize{14}{18}\selectfont,text=taoNavy] at (7.2,4.35) {Metric A};
+          \node[anchor=west,font=\fontsize{14}{18}\selectfont,text=taoRed] at (9.6,4.35) {Metric B};
+        \end{tikzpicture}
+      \end{center}
+    \end{column}
+  \end{taotwocolumns}
+\end{frame}
+
+\begin{frame}{Page Title}{Subtitle}
   \taobody{%
     Mathematical formulas use the Computer Modern font.
 

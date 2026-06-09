@@ -21,6 +21,8 @@ This repository contains matching Beamer and PowerPoint slide templates.
 - Title rule: `3 pt`.
 - Subtitle: `24 pt`.
 - Body text: `20 pt`.
+- Body content margins align with the subtitle left and right boundaries.
+- Tables: navy header text, `1.5 pt` navy header rule, and light gray row rules.
 
 ## Structure
 

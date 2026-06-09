@@ -6,10 +6,19 @@
 
 \RequirePackage{xcolor}
 \RequirePackage{tikz}
+\RequirePackage{array}
+\RequirePackage{booktabs}
+\RequirePackage{tabularx}
 
 \definecolor{taoNavy}{HTML}{002060}
 \definecolor{taoRed}{HTML}{C00000}
 \definecolor{taoGray}{HTML}{666666}
+\definecolor{taoTableRule}{HTML}{D9D9D9}
+
+\newlength{\taocontentmargin}
+\setlength{\taocontentmargin}{2.35cm}
+\newlength{\taocolumngap}
+\setlength{\taocolumngap}{0.85cm}
 
 \colorlet{primary}{taoNavy}
 \colorlet{secondary}{taoRed}
@@ -43,6 +52,8 @@
 \setbeamerfont{normal text}{size=\fontsize{20}{28},series=\bfseries}
 \setbeamerfont{itemize/enumerate body}{size=\fontsize{20}{28},series=\bfseries}
 \setbeamerfont{itemize/enumerate subbody}{size=\fontsize{20}{28},series=\bfseries}
+\setbeamerfont{tao table}{size=\fontsize{20}{28},series=\bfseries}
+\setbeamerfont{tao table head}{size=\fontsize{20}{28},series=\bfseries}
 \setbeamerfont*{footline}{size=\fontsize{14}{17},series=\normalfont}
 \setbeamerfont*{footnote}{size=\fontsize{6}{7}}
 \setbeamerfont*{caption name}{series=\bfseries}
@@ -68,7 +79,7 @@
   \vspace{1.22cm}
   \ifx\insertframesubtitle\empty
   \else
-    \hspace*{0.95cm}{\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertframesubtitle\par}
+    {\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertframesubtitle\par}
     \vspace{0.34cm}
   \fi
 }
@@ -85,19 +96,38 @@
 \setbeamertemplate{caption label separator}[period]
 \setbeamertemplate{navigation symbols}{}
 
-\setlength{\leftmargini}{2.00cm}
-\setlength{\leftmarginii}{1.45cm}
-\setlength{\leftmarginiii}{1.20cm}
+\setlength{\leftmargini}{0.82cm}
+\setlength{\leftmarginii}{0.72cm}
+\setlength{\leftmarginiii}{0.62cm}
 \setlength{\labelsep}{0.42cm}
 
 \newcommand{\emphasize}[1]{\textcolor{taoNavy}{#1}}
 \newcommand{\example}[1]{\textcolor{taoNavy}{#1}}
 \newcommand{\taoaccent}[1]{\textcolor{taoRed}{#1}}
+\newcommand{\taotablehead}[1]{\textcolor{taoNavy}{\usebeamerfont{tao table head}#1}}
+\newcommand{\taotableheadrule}{\arrayrulecolor{taoNavy}\specialrule{1.5pt}{0pt}{0pt}\arrayrulecolor{taoTableRule}}
+\newcommand{\taotablerowrule}{\arrayrulecolor{taoTableRule}\specialrule{0.6pt}{0pt}{0pt}}
 \newcommand{\taobody}[1]{%
-  \hspace*{0.95cm}%
-  \begin{minipage}{29.2cm}%
+  \begin{minipage}{\textwidth}%
     {\usebeamerfont{normal text}\selectfont #1\par}%
   \end{minipage}%
+}
+\newenvironment{taotable}{%
+  \begingroup
+  \begin{minipage}{\textwidth}%
+  \usebeamerfont{tao table}\selectfont
+  \renewcommand{\arraystretch}{1.42}%
+  \setlength{\tabcolsep}{0.34cm}%
+  \arrayrulecolor{taoTableRule}%
+}{%
+  \arrayrulecolor{black}%
+  \end{minipage}%
+  \endgroup
+}
+\newenvironment{taotwocolumns}{%
+  \begin{columns}[T,totalwidth=\textwidth]
+}{%
+  \end{columns}
 }
 
 \newcounter{beamerbibcount}
@@ -110,6 +140,6 @@
 \setlength\beamer@paperheight{19.05cm}
 \geometry{papersize={\beamer@paperwidth,\beamer@paperheight}}
 \makeatother
-\setbeamersize{text margin left=1.40cm,text margin right=1.40cm}
+\setbeamersize{text margin left=\taocontentmargin,text margin right=\taocontentmargin}
 
 \mode<all>
